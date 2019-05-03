@@ -46,11 +46,11 @@ dev:
 
 publish:
   steps:
+    - install-packages:
+        packages: ca-certificates
     - internal/publish-step:
-        owner: ivan
-        private: true
-
-
+        owner: wercker
+        
 # box: python:3.5
 
 # build:
