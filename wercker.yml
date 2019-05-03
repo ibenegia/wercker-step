@@ -46,11 +46,11 @@ dev:
 
 publish:
   steps:
-    - install-packages:
-        packages: ca-certificates
     - internal/publish-step:
         owner: wercker
-        
+        auth_token: f88f32a34696849757e23f5cae58af3dbb35d129ac3844a017330605653f25bd
+
+
 # box: python:3.5
 
 # build:
