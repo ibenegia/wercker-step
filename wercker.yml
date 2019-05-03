@@ -37,9 +37,8 @@ build:
                 #cp LICENSE $WERCKER_OUTPUT_DIR
                 #cp README.md $WERCKER_OUTPUT_DIR
         - script:
-            name: version
-            code: |
-              $WERCKER_OUTPUT_DIR/oci --version
+            name: print oci cli version
+            code: $WERCKER_OUTPUT_DIR/oci --version
 
 dev:
   steps:
@@ -48,7 +47,8 @@ dev:
 publish:
   steps:
     - internal/publish-step:
-        owner: wercker
+        owner: ivan
+        private: true
 
 
 # box: python:3.5
