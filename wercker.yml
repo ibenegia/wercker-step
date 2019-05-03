@@ -1,57 +1,66 @@
-# box: python:3.5
-
-# build:
-#     steps:
-#         - script:
-#             name: set version
-#             code: |
-#                 export OCI_CLI_VERSION="2.5.8"
-#                 echo "Installing version $OCI_CLI_VERSION of oci CLI"
-#         - script:
-#             name: install pyinstaller
-#             code: |
-#                 pip install pyinstaller==3.3.1
-#         - script:
-#             name: install ocicli 
-#             code: |
-#                 pip install oci-cli==${OCI_CLI_VERSION}
-#         - script:
-#             #use pyinstaller to convert the oci Python script into a standalone executable
-#             #since we can't guarantee that the users of this step will have Python available
-#             #in the box that their build runs in.
-#             name: pyinstaller
-#             code: |
-#                 mkdir -p /tmp/ocicli
-#                 cp $(which oci) /tmp/ocicli
-#                 cd /tmp/ocicli
-#                 pyinstaller -F /tmp/ocicli/oci
-#         - script:
-#             name: make sure CLI can be invoked
-#             code: |
-#                 python --version
-#                 oci
-#                 oci --version
-#         - script:
-#             name: print certificate
-#             code: |
-#                 cat oci_api_key.pem
-#         - script:
-#             name: call api get nodes
-#             code: |
-#                 oci db node list --compartment-id ocid1.compartment.oc1..aaaaaaaajtk2sms2l66jfiifql6ivkumvycbafie7dbxxgajhjreovgbtm5q --db-system-id ocid1.dbsystem.oc1.eu-frankfurt-1.abtheljswlq4qvyclo7ioict25w3sf5nsh2kpki2lymvporf2ec2ztdtfmuq
-
-
 box: python:3.5
 
 build:
     steps:
-      - wercker/oci-objectstore@1.2.0:
-        command: oci -version
-        region: eu-frankfurt-1
-        tenancy-ocid: ocid1.tenancy.oc1..aaaaaaaa2jvfyfoc6c4fzxayx4tnisw4tgdmualsijeglyul4llarzkq2zna
-        user-ocid: ocid1.user.oc1..aaaaaaaakzhfon2xhxveeefpudi6n45te64272ihckrwfnc3tpudcmlqzzuq
-        fingerprint: 36:fb:bf:38:5c:79:74:cd:3f:dd:6e:aa:49:81:2b:f2
-        api-key: "$(cat oci_api_key.pem)"
-        namespace: odemeasouth
-        bucket-name: mybucketname
+        - shellcheck:
+            files: run.sh
+
+        - script:
+            name: set version
+            code: |
+                export OCI_CLI_VERSION="2.5.8"
+                echo "Installing version $OCI_CLI_VERSION of oci CLI"
+        - script:
+            name: install pyinstaller
+            code: |
+                pip install pyinstaller==3.3.1
+        - script:
+            name: install ocicli 
+            code: |
+                pip install oci-cli==${OCI_CLI_VERSION}
+        - script:
+            #use pyinstaller to convert the oci Python script into a standalone executable
+            #since we can't guarantee that the users of this step will have Python available
+            #in the box that their build runs in.
+            name: pyinstaller
+            code: |
+                mkdir -p /tmp/ocicli
+                cp $(which oci) /tmp/ocicli
+                cd /tmp/ocicli
+                pyinstaller -F /tmp/ocicli/oci
+        - script:
+            name: prepare output
+            code: |
+                mv /tmp/ocicli/dist/oci $WERCKER_OUTPUT_DIR/oci
+                cp run.sh $WERCKER_OUTPUT_DIR
+                cp step.yml $WERCKER_OUTPUT_DIR
+                cp LICENSE $WERCKER_OUTPUT_DIR
+                cp README.md $WERCKER_OUTPUT_DIR
+        - script:
+            name: version
+            code: $WERCKER_OUTPUT_DIR/oci --version
+
+dev:
+  steps:
+    - internal/shell
+
+publish:
+  steps:
+    - internal/publish-step:
+        owner: wercker
+
+
+# box: python:3.5
+
+# build:
+#     steps:
+#       - wercker/oci-objectstore@1.2.0:
+#         command: oci -version
+#         region: eu-frankfurt-1
+#         tenancy-ocid: ocid1.tenancy.oc1..aaaaaaaa2jvfyfoc6c4fzxayx4tnisw4tgdmualsijeglyul4llarzkq2zna
+#         user-ocid: ocid1.user.oc1..aaaaaaaakzhfon2xhxveeefpudi6n45te64272ihckrwfnc3tpudcmlqzzuq
+#         fingerprint: 36:fb:bf:38:5c:79:74:cd:3f:dd:6e:aa:49:81:2b:f2
+#         api-key: "$(cat oci_api_key.pem)"
+#         namespace: odemeasouth
+#         bucket-name: mybucketname
 

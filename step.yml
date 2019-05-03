@@ -1,0 +1,46 @@
+name: oci-cli
+version: 1.0.0
+summary: perform some commands through oci cli 
+tags:
+- oci
+properties:
+- name: region
+  type: string
+  required: true
+- name: tenancy-ocid
+  type: string
+  required: true
+- name: user-ocid
+  type: string
+  required: true
+- name: fingerprint
+  type: string
+  required: false
+- name: namespace
+  type: string
+  required: false
+- name: bucket-name
+  type: string
+  required: false
+- name: command
+  type: string
+  required: true
+- name: local-dir
+  type: string
+  required: false
+- name: prefix
+  type: string
+  required: false
+- name: overwrite
+  type: boolean
+  required: false
+  default: false
+- name: local-file
+  type: string
+  required: false
+- name: object-name
+  type: string
+  required: false
+- name: options
+  type: string
+  required: false
