@@ -1,4 +1,4 @@
-box: python:3.6.4
+box: python:3.5
 
 build:
     steps:
@@ -8,7 +8,7 @@ build:
         - script:
             name: set version
             code: |
-                export OCI_CLI_VERSION="2.5.8"
+                export OCI_CLI_VERSION="2.4.19"
                 echo "Installing version $OCI_CLI_VERSION of oci CLI"
         - script:
             name: install pyinstaller
