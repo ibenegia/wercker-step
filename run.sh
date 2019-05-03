@@ -158,7 +158,7 @@ single_file_download_cmd() {
   run_command "$ocicmd"
 }
 
-oci_versiond_cmd() {
+oci_version_cmd() {
    local ocicmd="$WERCKER_STEP_ROOT/oci --config-file $CONFIG_FILE -version"
   run_command "$ocicmd" 
 }
@@ -196,14 +196,14 @@ main() {
         single_file_download_cmd
         ;;
     oci-version)
-        oci_versiond_cmd
+        oci_version_cmd
         ;;
-    start-db-node)
-        start_db_node_cmd
-        ;;
-    stop-db-node)
-        stop_db_node_cmd
-        ;;
+#    start-db-node)
+#        start_db_node_cmd
+#        ;;
+#    stop-db-node)
+#        stop_db_node_cmd
+#        ;;
     *)
         fail "unknown oci command $WERCKER_OCI_OBJECTSTORE_COMMAND - currently supported commands are [bulk-upload, bulk-download, get, put]"
         ;;
