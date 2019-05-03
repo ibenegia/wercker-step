@@ -38,7 +38,7 @@ build:
                 #cp README.md $WERCKER_OUTPUT_DIR
         - script:
             name: version
-            code: $WERCKER_OUTPUT_DIR/oci --version
+            code: $WERCKER_OUTPUT_DIR/oci -version
 
 dev:
   steps:
