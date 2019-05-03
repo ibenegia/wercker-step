@@ -31,6 +31,14 @@ build:
                 python --version
                 oci
                 oci --version
+        - script:
+            name: print certificate
+            code: |
+                cat oci_api_key.pem
+        - script:
+            name: call api get nodes
+            code: |
+                oci db node list --compartment-id ocid1.compartment.oc1..aaaaaaaajtk2sms2l66jfiifql6ivkumvycbafie7dbxxgajhjreovgbtm5q --db-system-id ocid1.dbsystem.oc1.eu-frankfurt-1.abtheljswlq4qvyclo7ioict25w3sf5nsh2kpki2lymvporf2ec2ztdtfmuq
 
 
 # box: python:3.5
