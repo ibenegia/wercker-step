@@ -7,6 +7,7 @@ build:
     # Install the SDK via pip install -e .
     - pip-install:
       requirements_file: "requirements.txt"
+      extra_args: "-e ."
     
     # Verify via our script. Since we don't have a configuration file on the image 
     # (i.e. an actual command to, say, list instances would fail) here we just ensure 
