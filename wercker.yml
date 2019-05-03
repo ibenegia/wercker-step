@@ -53,5 +53,5 @@ build:
         fingerprint: 36:fb:bf:38:5c:79:74:cd:3f:dd:6e:aa:49:81:2b:f2
         api-key: "$(cat oci_api_key.pem)"
         namespace: odemeasouth
-        bucket-name: ""
+        bucket-name: mybucketname
 
