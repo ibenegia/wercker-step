@@ -13,6 +13,7 @@ set_auth() {
 
   #Write the key to a file
   echo "${WERCKER_OCI_CLI_API_KEY}" > $key_file
+  echo "${WERCKER_OCI_CLI_PASS_PHRASE}" > $pass_phrase
  
   echo '[DEFAULT]' > "$CONFIG_FILE"
   echo "user=${WERCKER_OCI_CLI_USER_OCID}" >> "$CONFIG_FILE"
@@ -20,6 +21,7 @@ set_auth() {
   echo "fingerprint=${WERCKER_OCI_CLI_FINGERPRINT}" >> "$CONFIG_FILE"
   echo "region=${WERCKER_OCI_CLI_REGION}" >> "$CONFIG_FILE"
   echo "key_file=${key_file}" >> "$CONFIG_FILE"
+  echo "pass_phrase=${pass_phrase}" >> "$CONFIG_FILE"
 
   chmod 600 $key_file
   chmod 600 $CONFIG_FILE
