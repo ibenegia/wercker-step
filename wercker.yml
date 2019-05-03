@@ -1,3 +1,5 @@
+box: python:3.5
+
 build:
     steps:
       - wercker/oci-objectstore@1.2.0:
