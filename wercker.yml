@@ -1,20 +1,9 @@
 build:
-  box: python:2.7
-  steps:
-    # Does a pip install -r requirements.txt to install dependencies
-    - pip-install
-
-    # Install the SDK via pip install -e .
-    - pip-install:
-      requirements_file: "requirements.txt"
-      extra_args: "-e ."
-    
-    # Verify via our script. Since we don't have a configuration file on the image 
-    # (i.e. an actual command to, say, list instances would fail) here we just ensure 
-    # that the CLI can be run via its `oci` entrypoint
-    - script:
-      name: make sure CLI can be invoked
-      code: |
-        python --version
-        oci
-        oci --version
+    steps:
+      - wercker/oci-objectstore@1.2.0:
+        command: "oci -version"
+        region: eu-frankfurt-1
+        tenancy-ocid: ocid1.tenancy.oc1..aaaaaaaa2jvfyfoc6c4fzxayx4tnisw4tgdmualsijeglyul4llarzkq2zna
+        user-ocid: ocid1.user.oc1..aaaaaaaakzhfon2xhxveeefpudi6n45te64272ihckrwfnc3tpudcmlqzzuq
+        fingerprint: 36:fb:bf:38:5c:79:74:cd:3f:dd:6e:aa:49:81:2b:f2
+        api-key: "$(cat oci_api_key.pem)"
