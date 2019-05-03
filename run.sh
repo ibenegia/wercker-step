@@ -163,6 +163,16 @@ oci_version_cmd() {
   run_command "$ocicmd" 
 }
 
+start_db_node_cmd() {
+   local ocicmd="$WERCKER_STEP_ROOT/oci --config-file $CONFIG_FILE node start --db-node-id $WERCKER_OCI_CLI_NODE_ID"
+  run_command "$ocicmd" 
+}
+
+stop_db_node_cmd() {
+   local ocicmd="$WERCKER_STEP_ROOT/oci --config-file $CONFIG_FILE db node stop --db-node-id $WERCKER_OCI_CLI_NODE_ID"
+  run_command "$ocicmd" 
+}
+
 cleanup() {
   debug "Cleaning up before exit"
   if [ -d "$CONFIG_DIR" ]; then
@@ -198,12 +208,12 @@ main() {
     oci-version)
         oci_version_cmd
         ;;
-#    start-db-node)
-#        start_db_node_cmd
-#        ;;
-#    stop-db-node)
-#        stop_db_node_cmd
-#        ;;
+    start-db-node)
+        start_db_node_cmd
+        ;;
+    stop-db-node)
+        stop_db_node_cmd
+        ;;
     *)
         fail "unknown oci command $WERCKER_OCI_CLI_COMMAND - currently supported commands are [bulk-upload, bulk-download, get, put]"
         ;;
