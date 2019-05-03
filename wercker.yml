@@ -34,8 +34,8 @@ build:
                 mv /tmp/ocicli/dist/oci $WERCKER_OUTPUT_DIR/oci
                 cp run.sh $WERCKER_OUTPUT_DIR
                 cp step.yml $WERCKER_OUTPUT_DIR
-                cp LICENSE $WERCKER_OUTPUT_DIR
-                cp README.md $WERCKER_OUTPUT_DIR
+                #cp LICENSE $WERCKER_OUTPUT_DIR
+                #cp README.md $WERCKER_OUTPUT_DIR
         - script:
             name: version
             code: $WERCKER_OUTPUT_DIR/oci --version
