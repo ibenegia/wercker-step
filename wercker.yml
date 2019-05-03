@@ -1,4 +1,4 @@
-box: python:3.7.2
+box: python:3.6.4
 
 build:
     steps:
