@@ -176,7 +176,7 @@ stop_db_node_cmd() {
 }
 
 backup_db_cmd() {
-   local ocicmd="$WERCKER_STEP_ROOT/oci --config-file $CONFIG_FILE db backup create --database-id $WERCKER_OCI_CLI_DATABASE_ID"
+   local ocicmd="$WERCKER_STEP_ROOT/oci --config-file $CONFIG_FILE db backup create --database-id $WERCKER_OCI_CLI_DATABASE_ID --display-name $WERCKER_OCI_CLI_DISPLAY_NAME"
   run_command "$ocicmd" 
 }
 
