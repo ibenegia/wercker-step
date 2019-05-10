@@ -51,13 +51,13 @@ validate_oci_flags() {
     fail 'missing or empty option api_key, please check wercker.yml'
   fi
 
-  if [ -z "$WERCKER_OCI_CLI_BUCKET_NAME" ]; then
-    fail 'missing or empty option bucket_name, please check wercker.yml'
-  fi
+  # if [ -z "$WERCKER_OCI_CLI_BUCKET_NAME" ]; then
+  #   fail 'missing or empty option bucket_name, please check wercker.yml'
+  # fi
 
-  if [ -z "$WERCKER_OCI_CLI_NAMESPACE" ]; then
-    fail 'missing or empty option namespace, please check wercker.yml'
-  fi
+  # if [ -z "$WERCKER_OCI_CLI_NAMESPACE" ]; then
+  #   fail 'missing or empty option namespace, please check wercker.yml'
+  # fi
 }
 
 set_overwrite_flag_for_bulk() {
@@ -175,6 +175,16 @@ stop_db_node_cmd() {
   run_command "$ocicmd" 
 }
 
+backup_db_cmd() {
+   local ocicmd="$WERCKER_STEP_ROOT/oci --config-file $CONFIG_FILE db backup create --database-id $WERCKER_OCI_CLI_DATABASE_ID"
+  run_command "$ocicmd" 
+}
+
+restore_db_cmd() {
+   local ocicmd="$WERCKER_STEP_ROOT/oci --config-file $CONFIG_FILE db database restore --database-id $WERCKER_OCI_CLI_DATABASE_ID"
+  run_command "$ocicmd" 
+}
+
 cleanup() {
   debug "Cleaning up before exit"
   if [ -d "$CONFIG_DIR" ]; then
@@ -215,6 +225,12 @@ main() {
         ;;
     stop-db-node)
         stop_db_node_cmd
+        ;;
+    backup-db)
+        backup_db_cmd
+        ;;
+    restore-db)
+        restore_db_cmd
         ;;
     *)
         fail "unknown oci command $WERCKER_OCI_CLI_COMMAND - currently supported commands are [bulk-upload, bulk-download, get, put]"
