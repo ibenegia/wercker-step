@@ -1,5 +1,5 @@
 name: oci-cli
-version: 1.6.0
+version: 1.6.1
 summary: perform some commands through oci cli 
 tags:
 - oci

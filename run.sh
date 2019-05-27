@@ -166,7 +166,7 @@ oci_version_cmd() {
 }
 
 start_db_node_cmd() {
-   local ocicmd="$WERCKER_STEP_ROOT/oci --config-file $CONFIG_FILE node start --db-node-id $WERCKER_OCI_CLI_NODE_ID"
+   local ocicmd="$WERCKER_STEP_ROOT/oci --config-file $CONFIG_FILE db node start --db-node-id $WERCKER_OCI_CLI_NODE_ID"
   run_command "$ocicmd" 
 }
 
